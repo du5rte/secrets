@@ -1,0 +1,80 @@
+{
+  "name": "secrets",
+  "version": "1.0.0",
+  "description": "Secret handler for Node.js 🗝️",
+  "main": "dist",
+  "scripts": {
+    "build": "babel src --out-dir dist",
+    "clean": "rm -rf dist",
+    "dev": "babel src --out-dir dist && jest",
+    "prepublish": "rm -rf dist && babel src --out-dir dist",
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/du5rte/secrets#readme",
+  "author": "Duarte Monteiro <du5rtemonteiro@gmail.com> (https://du5rte.com)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/du5rte/secrets.git"
+  },
+  "bugs": {
+    "url": "https://github.com/du5rte/secrets/issues"
+  },
+  "keywords": [
+    "secret",
+    "secrets",
+    "environment",
+    "env",
+    ".env",
+    "dotenv",
+    "variables",
+    "config",
+    "settings"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.4.0",
+    "prettier": "^2.0.4"
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": "4.0.0"
+          }
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": [
+      "eslint:recommended",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+      "node": true,
+      "jest": true
+    },
+    "rules": {
+      "prettier/prettier": "warn"
+    },
+    "ignorePatterns": [
+      "dist/",
+      "node_modules/"
+    ]
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false
+  }
+}
