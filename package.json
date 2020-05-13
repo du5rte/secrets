@@ -4,11 +4,9 @@
   "description": "Secret handler for Node.js 🗝️",
   "main": "dist",
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "clean": "rm -rf dist",
-    "dev": "babel src --out-dir dist && jest",
-    "prepublish": "rm -rf dist && babel src --out-dir dist",
-    "lint": "eslint .",
+    "build": "babel src --out-dir dist --delete-dir-on-start --verbose",
+    "dev": "npm run build && npm run test",
+    "lint": "eslint src",
     "test": "jest"
   },
   "license": "MIT",
@@ -69,7 +67,7 @@
       "prettier/prettier": "warn"
     },
     "ignorePatterns": [
-      "dist/",
+      "lib/",
       "node_modules/"
     ]
   },

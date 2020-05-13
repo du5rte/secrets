@@ -1,8 +1,6 @@
-<p align="center"><a href="https://haystackapp.io/" target="_blank" rel="noopener noreferrer"><span style="font-size:64px;">🗝</span>
-</a></p>
+<p align="center"><a href="https://github.com/du5rte/secrets" target="_blank" rel="noopener noreferrer"><img width="100" src="key.svg" alt="Key"></a></p>
 
 <p align="center"><a href="https://github.com/du5rte/secrets"><img alt="GitHub Actions Test Status" src="https://github.com/du5rte/secrets/workflows/Test/badge.svg"/></p>
-
 
 # Secrets
 
