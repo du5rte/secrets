@@ -77,9 +77,9 @@ app.listen(PORT, () => {
 ## Babel Plugin
 
 ```
-{
-  "presets": ["@babel/preset-env"],
-  "plugins": ["secrets/babel-plugin-secrets"]
+module.exports = {
+  presets: ['module:metro-react-native-babel-preset'],
+  plugins: ['secrets/babel-plugin-secrets'],
 }
 ```
 
