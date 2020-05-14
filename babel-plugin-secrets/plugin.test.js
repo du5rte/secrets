@@ -2,7 +2,7 @@
 
 import { transformAsync } from '@babel/core'
 
-import plugin from './plugin'
+import plugin from './'
 
 const options = {
   plugins: [plugin],

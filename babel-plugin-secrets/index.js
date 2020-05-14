@@ -1,1 +1,1 @@
-module.export = require('./plugin')
+module.exports = require('./plugin')
