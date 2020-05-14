@@ -1,4 +1,4 @@
-import secrets, { NODE_ENV } from '../dist'
+import secrets, { NODE_ENV } from '.'
 
 describe('import', () => {
   test('process.env', () => {

@@ -74,6 +74,15 @@ app.listen(PORT, () => {
 });
 ```
 
+## Babel Plugin
+
+```
+{
+  "presets": ["@babel/preset-env"],
+  "plugins": ["secrets/babel-plugin-secrets"]
+}
+```
+
 ## Location
 
 Secrets should be place in the root of the project but it searches for `.env` files the same way node searches for `node_modules` folders, the closer to the root the higher the priority.
