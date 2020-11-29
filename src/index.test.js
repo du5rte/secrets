@@ -29,13 +29,13 @@ describe('get/set', () => {
   })
 
   test('set secrets', () => {
-    secrets.NEW_SECRET = 'SECRET'
+    process.env['NEW_SECRET'] = 'SECRET'
 
     expect(secrets.NEW_SECRET).toEqual('SECRET')
   })
 
   test('set process.env', () => {
-    secrets.NEW_SECRET = 'SECRET'
+    process.env['NEW_SECRET'] = 'SECRET'
 
     expect(process.env.NEW_SECRET).toEqual('SECRET')
   })
@@ -114,6 +114,12 @@ describe('.env', () => {
   test('quoted json', () => {
     // Retain Inner Quotes
     expect(secrets).toHaveProperty('JSON_QUOTED', '{"foo": "bar"}')
+  })
+})
+
+describe('.secrets', () => {
+  test('value key', () => {
+    expect(secrets).toHaveProperty('SECRETS_BASIC', 'secrets_basic')
   })
 })
 
