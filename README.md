@@ -60,18 +60,10 @@ app.listen(process.env.PORT, function () {
 })
 ```
 
-In ES6
+Verify environment variables are loaded in `process.env`
 
 ```javascript
-// setups entries in process.env
-import 'secrets'
-// bind process.env to exports
-import { PORT } from 'secrets'
-
-...
-app.listen(PORT, () => {
-  console.log(`Server running on localhost:${PORT}`)
-});
+secret.verify('PORT', 'SECRET') // throw error if it's missing
 ```
 
 ## Babel Plugin
@@ -82,6 +74,9 @@ module.exports = {
   plugins: ['secrets/babel-plugin-secrets'],
 }
 ```
+
+## Github Action
+To create secret `.env` environment files on demands on your github actions checkout [du5rte/create-secret-file](https://github.com/du5rte/create-secret-file)
 
 ## Location
 

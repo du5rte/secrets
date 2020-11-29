@@ -1,11 +1,18 @@
-const { readEnvs, cacheEnvs } = require('./core')
+const core = require('./core')
 
-const envs = readEnvs()
-
-cacheEnvs(envs)
-
-// binds exports to `process.env`
-// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/get
-Object.defineProperty(module, 'exports', {
-  get: () => process.env,
+Object.defineProperty(exports, '__esModule', {
+  value: true,
 })
+
+const secrets = core.search()
+
+Object.keys(secrets).forEach((key) => {
+  // set secret in process.env
+  process.env[key] = secrets[key]
+})
+
+// binds core methods to `import { verify } from 'secrets'`
+Object.assign(exports, core)
+
+// binds secrets to `import secrets from secrets` by binding `exports.default` to `process.env`
+exports.default = core

@@ -3,3 +3,4 @@ node_modules
 
 # Mac system files
 .DS_Store
+.yarn-error.log

@@ -1,4 +1,6 @@
-const { readEnvs } = require('../src/core')
+const core = require('../src/core')
+
+const secrets = core.search()
 
 module.exports = function babelPluginSecrets({
   types: { valueToNode, logicalExpression, identifier },
@@ -6,7 +8,7 @@ module.exports = function babelPluginSecrets({
   return {
     name: 'babel-plugin-secrets',
     pre() {
-      this.values = readEnvs()
+      this.values = secrets
     },
     visitor: {
       MemberExpression(node) {
