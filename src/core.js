@@ -15,7 +15,10 @@ const keyValuePairRegex = /^(\w+)\s*=\s*(.+)$/i
 
 function parseKeyValuePair(str) {
   try {
-    const [, key, rawValue] = str.match(keyValuePairRegex)
+    const match = str.match(keyValuePairRegex)
+
+    const key = match[1]
+    const rawValue = match[2]
 
     if (!key) {
       throw new Error(`missing or empty key`)
@@ -182,20 +185,54 @@ function search() {
   }
 }
 
-function verify() {
-  keys.forEach((key) => {
-    if (!process.env[key]) {
-      throw new Error(`Missing secret: "${key}"`)
+// function verify(secrets) {
+//   secrets.reduce()
+//   keys.forEach((key) => {
+//     if (!process.env[key]) {
+//       throw new Error(`Missing secret: "${key}"`)
+//     }
+//   })
+// }
+
+function indent(str) {
+  return str
+    .split('\n')
+    .map((str) => `  ${str}`)
+    .join('\n')
+}
+
+function verify(...keys) {
+  let hasInvalid = false
+
+  const secretsHashed = keys.reduce((final, key) => {
+    const invalid =
+      typeof process.env[key] !== 'string' && process.env[key].length > 0
+
+    if (invalid) {
+      hasInvalid = true
     }
-  })
+
+    return {
+      ...final,
+      [key]: invalid ? 'INVALID' : '***',
+    }
+  }, {})
+
+  const response = createDotEnvData(secretsHashed)
+
+  if (hasInvalid) {
+    throw new Error(`Invalid secret(s):\n${indent(response)}`)
+  }
+
+  console.log(`Verified secret(s):\n${indent(response)}`)
 }
 
 function createDotEnvData(secrets) {
-  return Object.entries(secrets)
-    .map(([key, value]) => {
-      return `${key}: '${value}'`
+  return Object.keys(secrets)
+    .map((key) => {
+      return `${key}: '${secrets[key]}'`
     })
-    .concat(['\n'])
+    .join('\n')
 }
 
 function createJsonData(secrets) {
