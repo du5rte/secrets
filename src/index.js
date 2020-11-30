@@ -16,5 +16,3 @@ Object.assign(exports, core)
 
 // binds secrets to `import secrets from secrets` by binding `exports.default` to `process.env`
 exports.default = core
-
-core.verify('NODE_ENV')

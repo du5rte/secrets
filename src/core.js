@@ -269,6 +269,7 @@ module.exports = {
   searchJsonFile,
   searchJavaScriptFile,
   verify,
+  sanatize,
   formatDotEnv,
   formatJson,
   format,
