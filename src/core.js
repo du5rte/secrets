@@ -201,52 +201,60 @@ function indent(str) {
     .join('\n')
 }
 
-function verify(...keys) {
-  let hasInvalid = false
+const INVALID = 'INVALID'
 
-  const secretsHashed = keys.reduce((final, key) => {
-    const invalid =
-      typeof process.env[key] !== 'string' && process.env[key].length > 0
-
-    if (invalid) {
-      hasInvalid = true
-    }
+function sanatize(secrets) {
+  return Object.keys(secrets).reduce((final, key) => {
+    const valid = typeof secrets[key] === 'string' && secrets[key].length > 0
 
     return {
       ...final,
-      [key]: invalid ? 'INVALID' : '***',
+      [key]: !valid ? INVALID : '***',
+    }
+  }, {})
+}
+
+function verify(...keys) {
+  const filtered = keys.reduce((obj, key) => {
+    return {
+      ...obj,
+      [key]: process.env[key],
     }
   }, {})
 
-  const response = createDotEnvData(secretsHashed)
+  const sanatized = sanatize(filtered)
 
-  if (hasInvalid) {
-    throw new Error(`Invalid secret(s):\n${indent(response)}`)
+  const invalid = Object.values(sanatized).includes(INVALID)
+
+  const formated = formatDotEnv(sanatized)
+
+  if (invalid) {
+    throw new Error(`Invalid secret(s):\n${indent(formated)}`)
   }
 
-  console.log(`Verified secret(s):\n${indent(response)}`)
+  console.log(`Verified secret(s):\n${indent(formated)}`)
 }
 
-function createDotEnvData(secrets) {
+function formatDotEnv(secrets) {
   return Object.keys(secrets)
     .map((key) => {
-      return `${key}: '${secrets[key]}'`
+      return `${key}=${secrets[key]}`
     })
     .join('\n')
 }
 
-function createJsonData(secrets) {
+function formatJson(secrets) {
   return JSON.stringify(secrets, null, 2)
 }
 
-function create(secrets, type) {
+function format(secrets, type) {
   type = type || 'dotenv'
 
   switch (type) {
     case 'dotenv':
-      return createDotEnvData(secrets)
+      return formatDotEnv(secrets)
     case 'json':
-      return createJsonData(secrets)
+      return formatJson(secrets)
   }
 }
 
@@ -261,7 +269,7 @@ module.exports = {
   searchJsonFile,
   searchJavaScriptFile,
   verify,
-  createDotEnvData,
-  createJsonData,
-  create,
+  formatDotEnv,
+  formatJson,
+  format,
 }

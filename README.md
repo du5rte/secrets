@@ -60,18 +60,6 @@ app.listen(process.env.PORT, function () {
 })
 ```
 
-In ES6
-
-```javascript
-// setups entries in process.env and binds to exports
-import { PORT } from 'secrets'
-
-...
-app.listen(PORT, () => {
-  console.log(`Server running on localhost:${PORT}`)
-});
-```
-
 Verify environment variables are loaded in `process.env`
 
 ```javascript
